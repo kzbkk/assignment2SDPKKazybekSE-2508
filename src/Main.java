@@ -1,13 +1,30 @@
-//TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
-// click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
-void main() {
-  //TIP Press <shortcut actionId="ShowIntentionActions"/> with your caret at the highlighted text
-  // to see how IntelliJ IDEA suggests fixing it.
-  IO.println(String.format("Hello and welcome!"));
+import FactoryMethod.*;
+import AbstractFactoryMethod.*;
 
-  for (int i = 1; i <= 5; i++) {
-    //TIP Press <shortcut actionId="Debug"/> to start debugging your code. We have set one <icon src="AllIcons.Debugger.Db_set_breakpoint"/> breakpoint
-    // for you, but you can always add more by pressing <shortcut actionId="ToggleLineBreakpoint"/>.
-    IO.println("i = " + i);
-  }
+public class Main {
+    public static void main(String[] args) {
+        System.out.println("Factory Method");
+        SubscriptionCreator basicCreator = new BasicCreator();
+        SubscriptionCreator premiumCreator = new PremiumCreator();
+
+        Subscription basic = basicCreator.createSubscription();
+        Subscription premium = premiumCreator.createSubscription();
+
+        basic.show();
+        premium.show();
+
+
+        System.out.println("\nAbstract Factory");
+        SubscriptionFactory basicFactory = new BasicFactory();
+        Subscription basicPlan = basicFactory.createSubscription();
+        Payment basicPayment = basicFactory.createPayment();
+        basicPlan.show();
+        basicPayment.pay();
+
+        SubscriptionFactory premiumFactory = new PremiumFactory();
+        Subscription premiumPlan = premiumFactory.createSubscription();
+        Payment premiumPayment = premiumFactory.createPayment();
+        premiumPlan.show();
+        premiumPayment.pay();
+    }
 }
